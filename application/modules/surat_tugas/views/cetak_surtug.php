@@ -294,7 +294,7 @@ $tanggal = tgl_ind($tgl); // ini adalah kode untuk menampilkan fungsi pada file 
 				<?php
 				} else {
 				?>
-					<p style="margin-bottom:-15px; margin-top:0px">a.n KEPALA DINAS KESEHATAN</p>
+					<p style="margin-bottom:-15px;">a.n KEPALA DINAS KESEHATAN</p>
 					<!-- <p style="margin-bottom:-10px">KABUPATEN JEPARA</p> -->
 					<p>SEKRETARIS DINAS</p>
 					<br><br>
