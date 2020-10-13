@@ -18,8 +18,7 @@ class Surat_keluar extends MY_Controller
     $id = $this->session->userdata('posisi');
     $data['surat'] = $model->getSuratKeluarAll($id)->result();
     if ($this->session->userdata('id_user') != '') {
-      // $this->template('dashboard', $data);
-      $this->template('maintenance', $data);
+      $this->template('dashboard', $data);
     } else {
       redirect('../', 'refresh');
     }
@@ -28,8 +27,15 @@ class Surat_keluar extends MY_Controller
   public function request()
   {
     $model = $this->M_default;
+    $model2 = $this->M_suratKeluar;
+    $id = $this->session->userdata('posisi');
 
+    $data['dispo'] = $model->getDispo($id, '1');
     $data['jenis_surat'] = $model->getDataSurat()->result();
+    $data['nomor_dinas'] = $model2->getNomor();
+    $data['penyimpanan'] = $model2->get_penyimpanan();
+    $data['komposisi'] = $model2->get_komposisi();
+    $data['no_penyimpanan'] = $model2->get_no_penyimpanan("Filling Cabinet");
     if ($this->session->userdata('id_user') != '') {
       $this->template('tambah', $data);
     } else {
@@ -60,8 +66,12 @@ class Surat_keluar extends MY_Controller
     $model = $this->M_suratKeluar;
     $model2 = $this->M_default;
 
-    $data['jenis_surat'] = $model2->getDataSurat()->result();
     $data['surat'] = $model->getSurat($id)->row();
+    $data['jenis_surat'] = $model2->getDataSurat()->result();
+    $id2 = $this->session->userdata('posisi');
+    $data['dispo'] = $model2->getDispo($id2, '1');
+    $data['penyimpanan'] = $model->get_penyimpanan();
+    $data['komposisi'] = $model->get_komposisi();
     if ($this->session->userdata('id_user') != '') {
       $this->template('ubah', $data);
     } else {

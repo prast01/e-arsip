@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
-	<title>
-		<?php
-			echo strtoupper(SITE_NAME);
-		?>
-	</title>
-	<link rel="shortcut icon" href="<?php echo base_url(LOGO2); ?>" type="image/x-icon">
+
+    <title>
+        <?php
+        echo strtoupper(SITE_NAME);
+        ?>
+    </title>
+    <link rel="shortcut icon" href="<?php echo base_url(LOGO2); ?>" type="image/x-icon">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -28,6 +29,7 @@
     <!-- DataTables -->
     <link rel="stylesheet" href="<?php echo base_url('plugins/datatables-bs4/css/dataTables.bootstrap4.css') ?>">
 </head>
+
 <body class="hold-transition">
 
     <div class="content-header">
@@ -60,48 +62,48 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    $no = 1;
-                                    foreach ($dasar as $row) {
+                                $no = 1;
+                                foreach ($dasar as $row) {
                                 ?>
-                                <tr>
-                                    <td><?php echo $no; ?></td>
-                                    <td><?php echo $row->perihal_surat; ?></td>
-                                    <td>SURAT MASUK</td>
-                                    <td>
-                                        <span class="text-primary" style="cursor: pointer" onclick="getData('SM-<?php echo $row->perihal_surat; ?>')"><i class="fa fa-check"></i> Pilih</span>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td><?php echo $no; ?></td>
+                                        <td><?php echo $row->perihal; ?></td>
+                                        <td>SURAT MASUK</td>
+                                        <td>
+                                            <span class="text-primary" style="cursor: pointer" onclick="getData('SM-<?php echo $row->perihal; ?>')"><i class="fa fa-check"></i> Pilih</span>
+                                        </td>
+                                    </tr>
                                 <?php
-                                        $no++;
-                                    }
-                                    
-                                    foreach ($rok as $row) {
+                                    $no++;
+                                }
+
+                                foreach ($rok as $row) {
                                 ?>
-                                <tr>
-                                    <td><?php echo $no; ?></td>
-                                    <td><?php echo $row['rok']; ?></td>
-                                    <td>ROK</td>
-                                    <td>
-                                        <span class="text-primary" style="cursor: pointer" onclick="getData('ROK-<?php echo $row['rok']; ?>')"><i class="fa fa-check"></i> Pilih</span>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td><?php echo $no; ?></td>
+                                        <td><?php echo $row['rok']; ?></td>
+                                        <td>ROK</td>
+                                        <td>
+                                            <span class="text-primary" style="cursor: pointer" onclick="getData('ROK-<?php echo $row['rok']; ?>')"><i class="fa fa-check"></i> Pilih</span>
+                                        </td>
+                                    </tr>
                                 <?php
-                                        $no++;
-                                    }
-                                    
-                                    foreach ($nota as $row) {
+                                    $no++;
+                                }
+
+                                foreach ($nota as $row) {
                                 ?>
-                                <tr>
-                                    <td><?php echo $no; ?></td>
-                                    <td><?php echo $row->perihal_nota_dinas; ?></td>
-                                    <td>NOTA DINAS</td>
-                                    <td>
-                                        <span class="text-primary" style="cursor: pointer" onclick="getData('ROK-<?php echo $row->perihal_nota_dinas; ?>')"><i class="fa fa-check"></i> Pilih</span>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td><?php echo $no; ?></td>
+                                        <td><?php echo $row->perihal_nota_dinas; ?></td>
+                                        <td>NOTA DINAS</td>
+                                        <td>
+                                            <span class="text-primary" style="cursor: pointer" onclick="getData('ROK-<?php echo $row->perihal_nota_dinas; ?>')"><i class="fa fa-check"></i> Pilih</span>
+                                        </td>
+                                    </tr>
                                 <?php
-                                        $no++;
-                                    }
+                                    $no++;
+                                }
                                 ?>
                             </tbody>
                         </table>
@@ -110,20 +112,20 @@
             </div>
         </div>
     </section>
-	<!-- jQuery -->
-	<script src="<?php echo base_url('plugins/jquery/jquery.min.js'); ?>"></script>
-	<!-- Bootstrap 4 -->
-	<script src="<?php echo base_url('plugins/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
-	<!-- jQuery-UI -->
-	<script src="<?php echo base_url('plugins/jquery-ui/jquery-ui.js'); ?>"></script>
-	<!-- AdminLTE App -->
-	<script src="<?php echo base_url('dist/js/adminlte.min.js'); ?>"></script>
+    <!-- jQuery -->
+    <script src="<?php echo base_url('plugins/jquery/jquery.min.js'); ?>"></script>
+    <!-- Bootstrap 4 -->
+    <script src="<?php echo base_url('plugins/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
+    <!-- jQuery-UI -->
+    <script src="<?php echo base_url('plugins/jquery-ui/jquery-ui.js'); ?>"></script>
+    <!-- AdminLTE App -->
+    <script src="<?php echo base_url('dist/js/adminlte.min.js'); ?>"></script>
     <!-- DataTables -->
     <script src="<?php echo base_url('plugins/datatables/jquery.dataTables.js'); ?>"></script>
     <script src="<?php echo base_url('plugins/datatables-bs4/js/dataTables.bootstrap4.js'); ?>"></script>
 
     <script>
-        $(function () {
+        $(function() {
             $(".datatable").DataTable();
         });
 
@@ -133,4 +135,5 @@
         }
     </script>
 </body>
+
 </html>

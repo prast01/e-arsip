@@ -32,7 +32,7 @@ class Surat_masuk extends MY_Controller
       "12" => "Desember"
     );
 
-    $tahun = array("2018", "2019", "2020");
+    $tahun = array("2018", "2019", "2020", "2021");
 
     $model = $this->M_default;
     $model2 = $this->M_suratMasuk;
@@ -46,8 +46,7 @@ class Surat_masuk extends MY_Controller
     $data['tahun'] = $tahun;
     $data['p_thn'] = $p_thn;
     if ($this->session->userdata('id_user') != '') {
-      // $this->template('dashboard', $data);
-      $this->template('maintenance', $data);
+      $this->template('dashboard', $data);
     } else {
       redirect('../', 'refresh');
     }
@@ -62,6 +61,9 @@ class Surat_masuk extends MY_Controller
     $data['dispo'] = $model->getDispo($id, '1');
     $data['jenis_surat'] = $model->getDataSurat()->result();
     $data['nomor_dinas'] = $model2->getNomor();
+    $data['penyimpanan'] = $model2->get_penyimpanan();
+    $data['komposisi'] = $model2->get_komposisi();
+    $data['no_penyimpanan'] = $model2->get_no_penyimpanan("Filling Cabinet");
     if ($this->session->userdata('id_user') != '') {
       $this->template('tambah', $data);
     } else {
@@ -98,6 +100,8 @@ class Surat_masuk extends MY_Controller
     $data['jenis_surat'] = $model2->getDataSurat()->result();
     $id2 = $this->session->userdata('posisi');
     $data['dispo'] = $model2->getDispo($id2, '2', $data['surat']->nomor_dinas);
+    $data['penyimpanan'] = $model->get_penyimpanan();
+    $data['komposisi'] = $model->get_komposisi();
     if ($this->session->userdata('id_user') != '') {
       $this->template('ubah', $data);
     } else {
@@ -278,7 +282,7 @@ class Surat_masuk extends MY_Controller
       "12" => "Desember"
     );
 
-    $tahun = array("2018", "2019", "2020");
+    $tahun = array("2018", "2019", "2020", "2021");
 
     $model = $this->M_default;
     $model2 = $this->M_suratMasuk;
@@ -322,7 +326,7 @@ class Surat_masuk extends MY_Controller
       "12" => "Desember"
     );
 
-    $tahun = array("2018", "2019", "2020");
+    $tahun = array("2018", "2019", "2020", "2021");
     $model = $this->M_default;
     $model2 = $this->M_suratMasuk;
     $id = $this->session->userdata('posisi');
@@ -343,6 +347,23 @@ class Surat_masuk extends MY_Controller
       } else {
         redirect('../', 'refresh');
       }
+    }
+  }
+
+  public function cetak_dispo($id)
+  {
+    $model = $this->M_suratMasuk;
+    $model2 = $this->M_default;
+
+    $data['surat'] = $model->getSurat($id)->row();
+    $data['jenis_surat'] = $model2->getDataSurat()->result();
+    $data['dispo'] = $model2->getDispo('1', '2', $data['surat']->nomor_dinas);
+    $data['dispo2'] = $model2->getDispo('19', '2', $data['surat']->nomor_dinas);
+    if ($this->session->userdata('id_user') != '') {
+      // $this->template('cetak_dispo', $data);
+      $this->load->view('cetak_dispo', $data);
+    } else {
+      redirect('../', 'refresh');
     }
   }
 }
