@@ -1,15 +1,15 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Surat_keluar extends MY_Controller {
+class Surat_keluar extends MY_Controller
+{
 
   public function __construct()
   {
     parent::__construct();
-		$this->load->model("M_default");
-		$this->load->model("M_suratKeluar");
-
+    $this->load->model("M_default");
+    $this->load->model("M_suratKeluar");
   }
 
   public function index()
@@ -18,9 +18,10 @@ class Surat_keluar extends MY_Controller {
     $id = $this->session->userdata('posisi');
     $data['surat'] = $model->getSuratKeluarAll($id)->result();
     if ($this->session->userdata('id_user') != '') {
-      $this->template('dashboard', $data);
+      // $this->template('dashboard', $data);
+      $this->template('maintenance', $data);
     } else {
-      redirect('../','refresh');
+      redirect('../', 'refresh');
     }
   }
 
@@ -32,7 +33,7 @@ class Surat_keluar extends MY_Controller {
     if ($this->session->userdata('id_user') != '') {
       $this->template('tambah', $data);
     } else {
-      redirect('../','refresh');
+      redirect('../', 'refresh');
     }
   }
 
@@ -41,8 +42,8 @@ class Surat_keluar extends MY_Controller {
     $model = $this->M_suratKeluar;
 
     $hasil = json_decode($model->save(), true);
-    
-    if($hasil['res']){
+
+    if ($hasil['res']) {
       $model2 = $this->M_default;
       $model2->_push();
       $this->session->set_flashdata('success', $hasil['msg']);
@@ -50,9 +51,8 @@ class Surat_keluar extends MY_Controller {
       $this->session->set_flashdata('gagal', $hasil['msg']);
     }
 
-    
-    redirect('../surat_keluar','location');
 
+    redirect('../surat_keluar', 'location');
   }
 
   public function ubah($id)
@@ -65,7 +65,7 @@ class Surat_keluar extends MY_Controller {
     if ($this->session->userdata('id_user') != '') {
       $this->template('ubah', $data);
     } else {
-      redirect('../','refresh');
+      redirect('../', 'refresh');
     }
   }
 
@@ -74,7 +74,7 @@ class Surat_keluar extends MY_Controller {
     $model = $this->M_suratKeluar;
 
     $hasil = json_decode($model->edit($id), true);
-    if($hasil['res']){
+    if ($hasil['res']) {
       $model2 = $this->M_default;
       $model2->_push();
       $this->session->set_flashdata('success', $hasil['msg']);
@@ -82,7 +82,7 @@ class Surat_keluar extends MY_Controller {
       $this->session->set_flashdata('gagal', $hasil['msg']);
     }
 
-    redirect('../surat_keluar','location');
+    redirect('../surat_keluar', 'location');
   }
 
   public function hapus($id)
@@ -90,7 +90,7 @@ class Surat_keluar extends MY_Controller {
     $model = $this->M_suratKeluar;
 
     $hasil = json_decode($model->delete($id), true);
-    if($hasil['res']){
+    if ($hasil['res']) {
       $model2 = $this->M_default;
       $model2->_push();
       $this->session->set_flashdata('success', $hasil['msg']);
@@ -98,7 +98,7 @@ class Surat_keluar extends MY_Controller {
       $this->session->set_flashdata('gagal', $hasil['msg']);
     }
 
-    redirect('../surat_keluar','location');
+    redirect('../surat_keluar', 'location');
   }
 
   public function validasi($id)
@@ -106,7 +106,7 @@ class Surat_keluar extends MY_Controller {
     $model = $this->M_suratKeluar;
 
     $hasil = json_decode($model->valid($id), true);
-    if($hasil['res']){
+    if ($hasil['res']) {
       $model2 = $this->M_default;
       $model2->_push();
       $this->session->set_flashdata('success', $hasil['msg']);
@@ -114,7 +114,7 @@ class Surat_keluar extends MY_Controller {
       $this->session->set_flashdata('gagal', $hasil['msg']);
     }
 
-    redirect('../surat_keluar','location');
+    redirect('../surat_keluar', 'location');
   }
 
   public function modal()
@@ -125,7 +125,7 @@ class Surat_keluar extends MY_Controller {
     if ($this->session->userdata('id_user') != '') {
       $this->load->view('modal', $data);
     } else {
-      redirect('../','refresh');
+      redirect('../', 'refresh');
     }
   }
 
@@ -134,7 +134,7 @@ class Surat_keluar extends MY_Controller {
     $model = $this->M_suratKeluar;
 
     $hasil = json_decode($model->upload($id), true);
-    if($hasil['res']){
+    if ($hasil['res']) {
       $model2 = $this->M_default;
       $model2->_push();
       $this->session->set_flashdata('success', $hasil['msg']);
@@ -142,9 +142,9 @@ class Surat_keluar extends MY_Controller {
       $this->session->set_flashdata('gagal', $hasil['msg']);
     }
 
-    redirect('../surat_keluar','location');
+    redirect('../surat_keluar', 'location');
   }
-  
+
   public function listSurat()
   {
     $model = $this->M_default;
@@ -154,7 +154,7 @@ class Surat_keluar extends MY_Controller {
 
     $this->load->view('listSurat', $data);
     // echo json_encode($data);
-    
+
   }
 }
 
