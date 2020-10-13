@@ -318,7 +318,7 @@ function diSpj2(item) {
 }
 
 function open_win() {
-  var origin = window.location.origin + "/surat_tugas/dasar";
+  var origin = url + "surat_tugas/dasar";
   window.open(
     origin,
     "_blank",
@@ -332,7 +332,7 @@ function tambahRek() {
   var jml = $("#jml").val();
   var rok = $("#jml2").val();
   var alasan = $("#alasan").val();
-  var origin = window.location.origin + "/nota_dinas/getRekening";
+  var origin = url + "nota_dinas/getRekening";
   var data = {
     id_rek: rek,
     jml: jml,
