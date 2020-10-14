@@ -52,7 +52,7 @@
                             </a>
                             <?php if ($this->session->userdata('posisi') == '1') : ?>
                                 <a href="<?php echo site_url('../surat_keluar/request'); ?>" class="btn btn-primary btn-rounded">
-                                    <i class="fa fa-plus-circle"></i> Pesan Surat Keluar
+                                    <i class="fa fa-plus-circle"></i> Tambah Surat Keluar
                                 </a>
                             <?php endif; ?>
                         </div>

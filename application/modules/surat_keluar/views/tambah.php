@@ -224,7 +224,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        <div class="form-group row" style="display: none;">
                                             <label for="inputEmail3" class="col-sm-4 col-form-label">File</label>
                                             <div class="col-sm-8">
                                                 <input type="file" name="file" class="form-control">

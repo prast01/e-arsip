@@ -66,7 +66,54 @@ class M_suratKeluar extends CI_Model
                 $msg = array('res' => 0, 'msg' => $hasil['msg']);
             }
         } else {
-            $msg = array('res' => 2, 'msg' => "Berkas Belum dilampirkan.");
+            // $msg = array('res' => 2, 'msg' => "Berkas Belum dilampirkan.");
+            $nomor = $post['nomor_dinas'];
+
+            $data = array(
+                'nomor_dinas' => $nomor,
+                'klasifikasi' => $post['klas'],
+                'sub_klasifikasi' => $post['sub_klas'],
+                'sub_sub_klasifikasi' => $post['sub_sub_klas'],
+                'nomor_surat' => $post['nomor_surat'],
+                'tgl_naik' => $post['tgl_naik'],
+                'tgl_surat' => $post['tgl_surat'],
+                'masalah' => $post['masalah'],
+                'nama_berkas' => $post['nama_berkas'],
+                'sifat_surat' => $post['sifat_surat'],
+                'ringkasan' => $post['ringkasan'],
+                'penerima' => $post['penerima'],
+                'wilayah' => $post['wilayah'],
+                'r_aktif' => $post['r_aktif'],
+                'r_inaktif' => $post['r_inaktif'],
+                'thn_aktif' => $post['thn_aktif'],
+                'thn_inaktif' => $post['thn_inaktif'],
+                'serie' => $post['serie'],
+                'ket_jra' => $post['ket_jra'],
+                'nilai_guna' => $post['nilai_guna'],
+                'penyimpanan' => $post['penyimpanan'],
+                'nomor_penyimpanan' => $post['nomor_penyimpanan'],
+                'jenis' => $post['jenis'],
+                'perihal' => $post['perihal'],
+                'lampiran' => $post['lampiran'],
+                'lampiran_satuan' => $post['lampiran_satuan'],
+                'komposisi' => $post['komposisi'],
+                'akses' => $post['akses'],
+                'tgl_ttd' => $post['tgl_ttd'],
+                'unit_kerja' => $post['unit_kerja'],
+                'catatan' => $post['catatan']
+            );
+
+            if ($nomor != '') {
+                $cek = $this->db->insert('tb_surat_keluar_2', $data);
+
+                if ($cek) {
+                    $msg = array('res' => 1, 'msg' => 'Surat Keluar Berhasil diarsipkan.');
+                } else {
+                    $msg = array('res' => 0, 'msg' => 'Surat Keluar Gagal diarsipkan.');
+                }
+            } else {
+                $msg = array('res' => 0, 'msg' => 'Surat Keluar Gagal diarsipkan.');
+            }
         }
 
         return json_encode($msg);

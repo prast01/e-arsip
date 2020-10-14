@@ -38,7 +38,7 @@ class M_default extends CI_Model
     public function getDispo($posisi, $slc, $nomor = NULL)
     {
         if ($posisi == '1') {
-            $q = $this->db->get('tb_posisi')->result();
+            $q = $this->db->get_where('tb_posisi', ["level !=" => 0])->result();
         } elseif ($posisi == '19') {
             $q = $this->db->get_where('tb_posisi', ['level' => $posisi])->result();
         } elseif ($posisi > '1' && $posisi < '5') {
