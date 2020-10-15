@@ -141,6 +141,11 @@ class M_services extends CI_Model
 
         return $data;
     }
+
+
+    public function get_surat($id, $surat)
+    {
+    }
 }
 
 /* End of file ModelName.php */

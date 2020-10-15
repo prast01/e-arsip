@@ -224,7 +224,9 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-warning btn-sm text-white" onclick="modal('<?php echo $row->file_surat; ?>', 'suratMasuk','<?php echo $ext[1]; ?>')" title="Lihat Berkas"><i class="fa fa-eye"></i></button>
+                                                        <?php if ($row->file_surat != '') : ?>
+                                                            <button type="button" class="btn btn-warning btn-sm text-white" onclick="modal('<?php echo $row->file_surat; ?>', 'suratMasuk','<?php echo $ext[1]; ?>')" title="Lihat Berkas"><i class="fa fa-eye"></i></button>
+                                                        <?php endif; ?>
                                                         <?php
                                                         if ($posisi == '1') {
                                                         ?>

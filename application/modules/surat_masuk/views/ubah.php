@@ -261,6 +261,12 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
+                                            <label for="inputEmail3" class="col-sm-4 col-form-label">Tanggal Diteruskan</label>
+                                            <div class="col-sm-8">
+                                                <input type="date" class="form-control" name="tgl_terus" placeholder="Tanggal Diteruskan" value="<?= $surat->tgl_terus; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
                                             <div class="col-sm-8">
                                                 <div class="custom-control custom-radio">
                                                     <input class="custom-control-input" type="radio" id="customRadio4" name="arsip" value="0" onclick="dispo(this)" <?= ($surat->arsipkan_1 == '0') ? "checked" : ""; ?>>

@@ -241,7 +241,9 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-warning btn-sm text-white" onclick="modal('<?php echo $row->file_surat; ?>', 'suratMasuk','<?php echo $ext[1]; ?>')" title="Lihat Berkas"><i class="fa fa-eye"></i></button>
+                                                        <?php if ($row->file_surat != '') : ?>
+                                                            <button type="button" class="btn btn-warning btn-sm text-white" onclick="modal('<?php echo $row->file_surat; ?>', 'suratMasuk','<?php echo $ext[1]; ?>')" title="Lihat Berkas"><i class="fa fa-eye"></i></button>
+                                                        <?php endif; ?>
                                                         <?php
                                                         if ($posisi == '1') {
                                                         ?>
@@ -265,6 +267,7 @@
                                                     </div>
                                                     <br>
                                                     <div class="btn-group" style="margin-top: 5px;">
+                                                        <button type="button" class="btn btn-info btn-sm text-white" onclick="modal_detail('<?= $row->id_surat_masuk; ?>', 'suratMasuk')" title="Lihat Surat"><i class="fa fa-eye"></i></button>
                                                         <a href="<?php echo site_url('../surat_masuk/cetak_dispo/' . $row->id_surat_masuk); ?>" class="btn btn-success btn-sm text-white" target="_blank" title="Cetak Lembar Disposisi"><i class="fa fa-print"></i></a>
                                                     </div>
                                                 </td>

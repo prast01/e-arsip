@@ -36,6 +36,7 @@
         }
 
         .catatan {
+            padding-inline-start: 40px;
             font-size: 12px;
             margin-bottom: 5px;
             margin-top: 0px;
@@ -62,6 +63,12 @@
             position: relative;
             bottom: 0;
             left: 10%;
+        }
+
+        .daftar {
+            padding-inline-start: 15px;
+            margin-block-start: 2px;
+            margin-block-end: 2px;
         }
     </style>
 </head>
@@ -108,6 +115,11 @@
                                 <td><?= $surat->nomor_surat; ?></td>
                             </tr>
                             <tr>
+                                <td width="25%">Berkas</td>
+                                <td width="1%">:</td>
+                                <td><?= $surat->nama_berkas; ?></td>
+                            </tr>
+                            <tr>
                                 <td width="25%">Tgl Surat</td>
                                 <td width="1%">:</td>
                                 <td><?= $surat->tgl_surat; ?></td>
@@ -133,6 +145,16 @@
                                 <td width="1%">:</td>
                                 <td><?= $surat->sifat_surat; ?></td>
                             </tr>
+                            <tr>
+                                <td width="30%">Lampiran</td>
+                                <td width="1%">:</td>
+                                <td><?= $surat->lampiran . " " . $surat->lampiran_satuan; ?></td>
+                            </tr>
+                            <tr>
+                                <td width="30%">Tindakan</td>
+                                <td width="1%">:</td>
+                                <td><?= $surat->tindakan; ?></td>
+                            </tr>
                         </tbody>
                     </table>
                 </td>
@@ -155,18 +177,55 @@
                     <table class="table" border="0" width="100%">
                         <tbody>
                             <tr>
-                                <td colspan="3">Diteruskan kepada :</td>
+                                <td>Diteruskan kepada :</td>
                             </tr>
                             <?php $no = 1; ?>
                             <?php foreach ($dispo as $row) : ?>
                                 <?php if ($row['selected'] == "selected") : ?>
-                                    <tr>
+                                    <!-- <tr>
                                         <td width="3%"><?= ($row['selected'] == "selected") ? "<span style='color: red; font-size: 12px;'>&#9746;</span>" : "<span style='color: black; font-size: 12px;'>&#9744;</span>"; ?> </td>
                                         <td width="4%"><?= $no++; ?>.</td>
                                         <td><?= $row['posisi']; ?></td>
-                                    </tr>
+                                    </tr> -->
                                 <?php endif; ?>
                             <?php endforeach; ?>
+                            <tr>
+                                <td>
+                                    <ol class="daftar">
+                                        <li>
+                                            Sekretariat
+                                            <ul class="daftar" style="list-style-type: lower-latin;">
+                                                <li>Kasubbag Umum & Kepegawaian</li>
+                                                <li>Kasubbag Renkeu</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            Kabid Kesmas
+                                            <ul class="daftar" style="list-style-type: lower-latin;">
+                                                <li>Kasi Promkes</li>
+                                                <li>Kasi Kesga</li>
+                                                <li>Kasi Kesling</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            Kabid Yankes dan PSDK
+                                            <ul class="daftar" style="list-style-type: lower-latin;">
+                                                <li>Kasi SDMK</li>
+                                                <li>Kasi Farmalkes</li>
+                                                <li>Kasi Yankes</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            Kabid P2P
+                                            <ul class="daftar" style="list-style-type: lower-latin;">
+                                                <li>Kasi P2PM</li>
+                                                <li>Kasi P2PTM</li>
+                                                <li>Kasi Surveilans & Imunisasi</li>
+                                            </ul>
+                                        </li>
+                                    </ol>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </td>
@@ -218,22 +277,26 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <table class="table" border="0" width="100%">
+                    <table class="table" border="0" width="100%" height=500px">
                         <tbody>
                             <tr>
-                                <td width="50%">Catatan</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p class="catatan"><b>1. Kepala Dinas :</b> <br><?= $surat->catatan; ?></p>
-                                    <br><br>
-                                    <p class="catatan"><b>2. Sekretaris :</b> <br><?= $surat->catatan_sekdin; ?></p>
-                                    <br><br>
-                                    <p class="catatan"><b>3. Kabid :</b> <br><?= $surat->catatan_kabid; ?></p>
-                                    <br><br>
-                                    <p class="catatan"><b>4. Kasubag/Kasi :</b> <br><?= $surat->catatan_kasie; ?></p>
-                                    <br><br>
+                                <td valign="top">
+                                    <b>Catatan</b>
+                                    <p class="catatan">
+                                        <b>1. Kepala Dinas :</b>
+                                    </p>
+                                    <br><br><br><br>
+                                    <p class="catatan">
+                                        <b>2. Sekretaris :</b>
+                                    </p>
+                                    <br><br><br><br>
+                                    <p class="catatan">
+                                        <b>3. Kabid/Kasubag :</b>
+                                    </p>
+                                    <br><br><br><br>
+                                    <p class="catatan">
+                                        <b>4. Kasi :</b>
+                                    </p>
                                 </td>
                                 <td valign="bottom">
                                     <table border="0" width="100%">
@@ -259,7 +322,7 @@
         </tbody>
     </table>
     <br>
-    <div class="garis">
+    <!-- <div class="garis">
         <div class="potong">Potong Disini &#9986;</div>
     </div>
     <br>
@@ -389,7 +452,7 @@
                 </td>
             </tr>
         </tbody>
-    </table>
+    </table> -->
 </body>
 
 </html>

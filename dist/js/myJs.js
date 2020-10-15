@@ -162,6 +162,25 @@ function set_nilai_ubah() {
 }
 
 
+function modal_detail(id, surat) {
+  var data = {
+    id_surat: id,
+    jenis: surat
+  };
+  
+  $.ajax({
+    type: "POST",
+    url: url + "services/modal_detail",
+    data: data,
+    success: function (data) {
+      $("#modalku").modal();
+      $(".modal-title").html("Detail Surat");
+      $(".modal-body").html(data);
+    },
+  });
+}
+
+
 function modal(id, lokasi, ext) {
   $("#modalku").modal();
   $(".modal-title").html("Berkas - " + id);
@@ -396,12 +415,3 @@ function dispo(id) {
   }
   console.log(val);
 }
-
-
-// function thn_aktif() {
-//   var thn = $("#tahun_skrg").val();
-//   var aktif = $("#r_aktif").val();
-
-//   var x = parseInt(thn) + parseInt(aktif);
-//   $("#thn_aktif").val(x);
-// }

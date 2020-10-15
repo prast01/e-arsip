@@ -42,6 +42,7 @@ class M_suratMasuk extends CI_Model
                     'jenis' => $post['jenis'],
                     'file_surat' => $nama_file,
                     'tgl_dispo' => $post['tgl_dispo'],
+                    'tgl_terus' => $post['tgl_terus'],
                     'perihal' => $post['perihal'],
                     'lampiran' => $post['lampiran'],
                     'lampiran_satuan' => $post['lampiran_satuan'],
@@ -98,6 +99,7 @@ class M_suratMasuk extends CI_Model
                 'nomor_penyimpanan' => $post['nomor_penyimpanan'],
                 'jenis' => $post['jenis'],
                 'tgl_dispo' => $post['tgl_dispo'],
+                'tgl_terus' => $post['tgl_terus'],
                 'perihal' => $post['perihal'],
                 'lampiran' => $post['lampiran'],
                 'lampiran_satuan' => $post['lampiran_satuan'],
@@ -197,6 +199,7 @@ class M_suratMasuk extends CI_Model
             'nomor_penyimpanan' => $post['nomor_penyimpanan'],
             'jenis' => $post['jenis'],
             'tgl_dispo' => $post['tgl_dispo'],
+            'tgl_terus' => $post['tgl_terus'],
             'perihal' => $post['perihal'],
             'lampiran' => $post['lampiran'],
             'lampiran_satuan' => $post['lampiran_satuan'],
@@ -210,7 +213,9 @@ class M_suratMasuk extends CI_Model
         if (!empty($_FILES['file']['name']) && $nomor != '') {
             $hasil = json_decode($this->_uploadFile('suratMasuk', 'surat-masuk'), true);
             if ($hasil['res']) {
-                $this->_deleteFile('suratMasuk', $post['old_file']);
+                if ($post['old_file'] != '') {
+                    $this->_deleteFile('suratMasuk', $post['old_file']);
+                }
                 $nama_file = $hasil['name_file'];
                 $data2 = array(
                     'file_surat' => $nama_file
