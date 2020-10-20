@@ -145,6 +145,38 @@ class M_services extends CI_Model
 
     public function get_surat($id, $surat)
     {
+        if ($surat == "suratMasuk") {
+            $table = "tb_surat_masuk_2";
+            $where = array(
+                'id_surat_masuk' => $id
+            );
+
+            $data = $this->db->get_where($table, $where);
+        } else {
+            $table = "tb_surat_keluar_2";
+            $where = array(
+                'id_surat_keluar' => $id
+            );
+            $this->db->from($table);
+            $this->db->join("tb_posisi", "tb_surat_keluar_2.unit_kerja=tb_posisi.id_posisi");
+            $this->db->where($where);
+            $data = $this->db->get();
+        }
+
+
+
+        return $data->row();
+    }
+
+    public function get_dispo($nomor_surat)
+    {
+        $this->db->select("posisi");
+        $this->db->from("tb_dispo_kadin");
+        $this->db->join("tb_posisi", "tb_dispo_kadin.posisi_kadin=tb_posisi.id_posisi");
+        $this->db->where("nomor_dinas", $nomor_surat);
+        $data = $this->db->get()->result_array();
+
+        return $data;
     }
 }
 

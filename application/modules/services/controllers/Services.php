@@ -305,4 +305,30 @@ class Services extends MY_Controller
 
         echo json_encode($hsl);
     }
+
+    public function modal_detail()
+    {
+        $model = $this->M_services;
+        $id = $_POST['id_surat'];
+        $surat = $_POST['jenis'];
+
+        $data['jenis'] = $surat;
+        $data['surat'] = $model->get_surat($id, $surat);
+        if ($surat == "suratMasuk") {
+            if ($data['surat']->arsipkan_1 == "0") {
+                $data['dispo'] = $model->get_dispo($data['surat']->nomor_dinas);
+            } else {
+                $data['dispo'] = array(
+                    array("posisi" => "Kepala Dinas")
+                );
+            }
+        } else {
+            $data['dispo'] = array(
+                array("posisi" => $data['surat']->posisi)
+            );
+        }
+
+
+        $this->load->view('detail_surat', $data);
+    }
 }

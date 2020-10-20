@@ -86,12 +86,18 @@
                                                 <td><?= $row->tgl_ttd; ?></td>
                                                 <td class="text-center">
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-warning btn-sm text-white" onclick="modal('<?php echo $row->file_surat; ?>', 'suratKeluar','<?php echo $ext[1]; ?>')" title="Lihat Berkas"><i class="fa fa-eye"></i></button>
+                                                        <?php if ($row->file_surat != '') : ?>
+                                                            <button type="button" class="btn btn-warning btn-sm text-white" onclick="modal('<?php echo $row->file_surat; ?>', 'suratKeluar','<?php echo $ext[1]; ?>')" title="Lihat Berkas"><i class="fa fa-eye"></i></button>
+                                                        <?php endif; ?>
 
                                                         <?php if ($this->session->userdata('posisi') == '1') : ?>
                                                             <a href="<?php echo site_url('../surat_keluar/ubah/' . $row->id_surat_keluar); ?>" class="btn btn-primary btn-sm" title="Edit Berkas"><i class="fa fa-edit"></i></a>
                                                             <a href="<?php echo site_url('../surat_keluar/hapus/' . $row->id_surat_keluar); ?>" class="btn btn-danger btn-sm" title="Hapus Berkas" onclick="return confirm('Hapus?')"><i class="fa fa-trash"></i></a>
                                                         <?php endif; ?>
+                                                    </div>
+                                                    <br>
+                                                    <div class="btn-group" style="margin-top: 5px;">
+                                                        <button type="button" class="btn btn-info btn-sm text-white" onclick="modal_detail('<?= $row->id_surat_keluar; ?>', 'suratKeluar')" title="Lihat Surat"><i class="fa fa-eye"></i></button>
                                                     </div>
                                                 </td>
                                             </tr>
