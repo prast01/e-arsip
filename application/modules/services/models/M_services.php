@@ -178,6 +178,22 @@ class M_services extends CI_Model
 
         return $data;
     }
+
+    public function get_surat_no($no, $jenis)
+    {
+        $where = array(
+            'nomor_surat' => $no
+        );
+        if ($jenis == "suratMasuk") {
+            $table = "tb_surat_masuk_2";
+        } else {
+            $table = "tb_surat_keluar_2";
+        }
+
+        $data = $this->db->get_where($table, $where);
+
+        return $data;
+    }
 }
 
 /* End of file ModelName.php */

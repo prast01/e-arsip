@@ -331,4 +331,37 @@ class Services extends MY_Controller
 
         $this->load->view('detail_surat', $data);
     }
+
+    public function get_surat()
+    {
+        $model = $this->M_services;
+        $no = $_GET['no'];
+        $jenis = $_GET['jenis'];
+
+        $surat = $model->get_surat_no($no, $jenis);
+
+        if ($surat->num_rows() > 0) {
+            $dt = $surat->row();
+            if ($jenis == "suratMasuk") {
+                $id = $dt->id_surat_masuk;
+            } else {
+                $id = $dt->id_surat_keluar;
+            }
+
+            $hsl = array(
+                "res" => 1,
+                "kode_klas" => $dt->sub_sub_klasifikasi,
+                "nomor_dinas" => $dt->nomor_dinas,
+                "ringkasan" => $dt->ringkasan,
+                "penyimpanan" => $dt->penyimpanan,
+                "id_surat" => $id,
+            );
+        } else {
+            $hsl = array(
+                "res" => 0,
+            );
+        }
+
+        echo json_encode($hsl);
+    }
 }

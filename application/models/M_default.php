@@ -357,7 +357,9 @@ class M_default extends CI_Model
             $notaDinas = $this->db->query("SELECT * FROM tb_nota_dinas WHERE created_by='$id'")->num_rows();
         }
 
-        $msg = array("surat_masuk" => $suratMasuk, "surat_keluar" => $suratKeluar, "surat_tugas" => $suratTugas, "nota_dinas" => $notaDinas);
+        $pinjam = $this->db->query("SELECT * FROM tb_pinjam WHERE status_pinjam='0'")->num_rows();
+
+        $msg = array("surat_masuk" => $suratMasuk, "surat_keluar" => $suratKeluar, "surat_tugas" => $suratTugas, "nota_dinas" => $notaDinas, "pinjam" => $pinjam);
 
         return json_encode($msg);
     }
