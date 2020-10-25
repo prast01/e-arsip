@@ -68,19 +68,19 @@
 									<div class="form-group row">
 										<label for="inputEmail3" class="col-sm-2 col-form-label">Perihal</label>
 										<div class="col-sm-10">
-											<input type="text" disabled class="form-control" name="perihal_surat" placeholder="Perihal Surat" value="<?php echo $surat->perihal_surat; ?>">
+											<input type="text" disabled class="form-control" name="perihal_surat" placeholder="Perihal Surat" value="<?php echo $surat->perihal; ?>">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label for="inputEmail3" class="col-sm-2 col-form-label">Lampiran</label>
 										<div class="col-sm-10">
-											<input type="text" disabled class="form-control" name="lampiran_surat" placeholder="Lampiran Surat" value="<?php echo $surat->lampiran_surat; ?>">
+											<input type="text" disabled class="form-control" name="lampiran_surat" placeholder="Lampiran Surat" value="<?php echo $surat->lampiran . " " . $surat->lampiran_satuan; ?>">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label for="inputEmail3" class="col-sm-2 col-form-label">Pengirim</label>
 										<div class="col-sm-10">
-											<input type="text" disabled class="form-control" name="pengirim_surat" placeholder="Pengirim Surat" value="<?php echo $surat->pengirim_surat; ?>">
+											<input type="text" disabled class="form-control" name="pengirim_surat" placeholder="Pengirim Surat" value="<?php echo $surat->pengirim; ?>">
 										</div>
 									</div>
 									<div class="form-group row">
