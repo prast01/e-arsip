@@ -45,8 +45,7 @@
                         <div class="card-body">
                             <div class="row mb-3">
                                 <div class="col-12">
-                                    <a href="<?= site_url("../pinjam/tambah"); ?>" class="btn btn-success"><span class="fa fa-plus"></span> Pinjam Baru</a>
-                                    <a href="<?= site_url("../pinjam/kembali"); ?>" class="btn btn-danger"><span class="fa fa-envelope"></span> Daftar Kembali</a>
+                                    <a href="<?= site_url("../pinjam"); ?>" class="btn btn-success"><span class="fa fa-arrow-left"></span> Kembali</a>
                                 </div>
                             </div>
                             <div class="row">
@@ -58,6 +57,7 @@
                                                     <th>No Agenda</th>
                                                     <th>Nama Peminjam</th>
                                                     <th>Tgl Pinjam</th>
+                                                    <th>Tgl Kembali</th>
                                                     <th>Klasifikasi</th>
                                                     <th>No Berkas</th>
                                                     <th>Isi Berkas</th>
@@ -72,6 +72,7 @@
                                                         <td><?= $key->no_pinjam; ?></td>
                                                         <td><?= $key->nama_peminjam; ?></td>
                                                         <td><?= $key->tgl_pinjam; ?></td>
+                                                        <td><?= $key->tgl_kembali; ?></td>
                                                         <td><?= $key->kode_klas; ?></td>
                                                         <td><?= $key->no_surat; ?></td>
                                                         <td><?= $key->ringkasan; ?></td>

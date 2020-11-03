@@ -38,7 +38,7 @@
                                                             <div class="col-sm-1">
                                                                 <div class="form-group pt-2">
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" name="jns" id="jns" value="suratMasuk" checked>
+                                                                        <input class="form-check-input" type="radio" name="jenis_surat" id="jns" value="suratMasuk" checked>
                                                                         <label class="form-check-label">Masuk</label>
                                                                     </div>
                                                                 </div>
@@ -46,7 +46,7 @@
                                                             <div class="col-sm-1">
                                                                 <div class="form-group pt-2">
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" name="jns" id="jns" value="suratKeluar">
+                                                                        <input class="form-check-input" type="radio" name="jenis_surat" id="jns" value="suratKeluar">
                                                                         <label class="form-check-label">Keluar</label>
                                                                     </div>
                                                                 </div>
@@ -69,7 +69,7 @@
                                                 <div class="form-group row">
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label">Nomor Agenda</label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" name="id_surat" id="id_surat">
+                                                        <input type="hidden" name="id_surat" id="id_surat">
                                                         <input type="text" class="form-control" id="nomor_dinas" name="nomor_dinas" readonly>
                                                     </div>
                                                 </div>
@@ -101,29 +101,32 @@
                                             <div class="col-6">
                                                 <h4>Identitas Peminjam</h4>
                                                 <div class="form-group row">
-                                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Tgl Peminjaman</label>
+                                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Tgl Peminjaman *</label>
                                                     <div class="col-sm-9">
-                                                        <input type="date" class="form-control" id="tgl_pinjam" name="tgl_pinjam" value="<?= date("Y-m-d"); ?>">
+                                                        <input type="date" class="form-control" id="tgl_pinjam" required name="tgl_pinjam" value="<?= date("Y-m-d"); ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="inputEmail3" class="col-sm-3 col-form-label">Nomor Peminjaman</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control" id="no_pinjam" name="no_pinjam">
+                                                        <input type="number" class="form-control" id="no_pinjam" name="no_pinjam" required value="<?= $last; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Unit Kerja</label>
+                                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Unit Kerja *</label>
                                                     <div class="col-sm-9">
-                                                        <select name="unit_kerja" id="unit_kerja" class="form-control select2" style="width: 100%;">
-                                                            <option selected disabled>Pilih Unit Kerja</option>
+                                                        <select name="unit_kerja" required id="unit_kerja" class="form-control select2" style="width: 100%;">
+                                                            <option selected value="">Pilih Unit Kerja</option>
+                                                            <?php foreach ($unit_kerja as $key) : ?>
+                                                                <option value="<?= $key->id_posisi; ?>"><?= $key->posisi; ?></option>
+                                                            <?php endforeach; ?>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Nama Peminjaman</label>
+                                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Nama Peminjaman *</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control" id="nama_peminjam" name="nama_peminjam">
+                                                        <input type="text" class="form-control" required id="nama_peminjam" name="nama_peminjam">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
