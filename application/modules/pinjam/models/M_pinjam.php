@@ -40,6 +40,8 @@ class M_pinjam extends CI_Model
             "no_surat" => $post["no_surat"],
             "kode_klas" => $post["kode_klas"],
             "ringkasan" => $post["ringkasan"],
+            "nomor_dinas" => $post["nomor_dinas"],
+            "penyimpanan" => $post["penyimpanan"],
         );
 
         $cek = $this->db->insert("tb_pinjam", $data);
@@ -48,6 +50,73 @@ class M_pinjam extends CI_Model
             $msg = array("res" => 1, "msg" => "Data Peminjaman Berhasil Dibuat");
         } else {
             $msg = array("res" => 0, "msg" => "Data Peminjaman Gagal Dibuat");
+        }
+
+        return $msg;
+    }
+
+    public function edit($id)
+    {
+        $post = $this->input->post();
+
+        if ($post['unit_kerja'] == "") {
+            $msg = array("res" => 0, "msg" => "Unit Kerja Belum Dipilih !");
+            return $msg;
+        }
+
+        if ($post['nama_peminjam'] == "") {
+            $msg = array("res" => 0, "msg" => "Nama Peminjam Belum Diisi !");
+            return $msg;
+        }
+
+        $where = array(
+            "id_pinjam" => $id
+        );
+
+        $data = array(
+            "tgl_pinjam" => $post["tgl_pinjam"],
+            "referensi" => $post["referensi"],
+            "unit_kerja" => $post["unit_kerja"],
+            "nama_peminjam" => $post["nama_peminjam"],
+            "keperluan" => $post["keperluan"],
+            "catatan" => $post["catatan"],
+        );
+
+        $cek = $this->db->update("tb_pinjam", $data, $where);
+
+        if ($cek) {
+            $msg = array("res" => 1, "msg" => "Data Peminjaman Berhasil Diubah");
+        } else {
+            $msg = array("res" => 0, "msg" => "Data Peminjaman Gagal Diubah");
+        }
+
+        return $msg;
+    }
+
+    public function back($id)
+    {
+        $post = $this->input->post();
+
+        if ($post['tgl_kembali'] == "") {
+            $msg = array("res" => 0, "msg" => "Tanggal Belum Dipilih !");
+            return $msg;
+        }
+
+        $where = array(
+            "id_pinjam" => $id
+        );
+
+        $data = array(
+            "tgl_kembali" => $post["tgl_kembali"],
+            "status_pinjam" => 1,
+        );
+
+        $cek = $this->db->update("tb_pinjam", $data, $where);
+
+        if ($cek) {
+            $msg = array("res" => 1, "msg" => "Data Peminjaman Berhasil Diubah");
+        } else {
+            $msg = array("res" => 0, "msg" => "Data Peminjaman Gagal Diubah");
         }
 
         return $msg;
@@ -79,10 +148,19 @@ class M_pinjam extends CI_Model
 
         return $data;
     }
+
     public function get_data_kembali()
     {
         $this->db->order_by("no_pinjam", "ASC");
         $data = $this->db->get_where("v_pinjam", ["status_pinjam" => 1])->result();
+
+        return $data;
+    }
+
+    // get berkas
+    public function get_berkas($id)
+    {
+        $data = $this->db->get_where("tb_pinjam", ["id_pinjam" => $id])->row();
 
         return $data;
     }

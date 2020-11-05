@@ -49,6 +49,30 @@ class Pinjam extends MY_Controller
         }
     }
 
+    public function ubah($id)
+    {
+        $model = $this->M_pinjam;
+        if ($this->session->userdata("id_user") != "") {
+            $data['berkas'] = $model->get_berkas($id);
+            $data['unit_kerja'] = $model->get_unit_kerja();
+            $this->template("ubah", $data);
+        } else {
+            redirect('../', 'refresh');
+        }
+    }
+
+    public function kembalikan($id)
+    {
+        $model = $this->M_pinjam;
+        if ($this->session->userdata("id_user") != "") {
+            $data['berkas'] = $model->get_berkas($id);
+            $data['unit_kerja'] = $model->get_unit_kerja();
+            $this->template("kembali", $data);
+        } else {
+            redirect('../', 'refresh');
+        }
+    }
+
     // CRUD
     public function add()
     {
@@ -61,6 +85,40 @@ class Pinjam extends MY_Controller
                 $this->session->set_flashdata("gagal", $add["msg"]);
             }
             redirect('../pinjam', 'refresh');
+        } else {
+            redirect('../', 'refresh');
+        }
+    }
+
+    public function edit($id)
+    {
+        $model = $this->M_pinjam;
+        if ($this->session->userdata("id_user") != "") {
+            $add = $model->edit($id);
+            if ($add['res']) {
+                $this->session->set_flashdata("success", $add["msg"]);
+                redirect('../pinjam', 'refresh');
+            } else {
+                $this->session->set_flashdata("gagal", $add["msg"]);
+                redirect('../pinjam/ubah/' . $id, 'refresh');
+            }
+        } else {
+            redirect('../', 'refresh');
+        }
+    }
+
+    public function back($id)
+    {
+        $model = $this->M_pinjam;
+        if ($this->session->userdata("id_user") != "") {
+            $add = $model->back($id);
+            if ($add['res']) {
+                $this->session->set_flashdata("success", $add["msg"]);
+                redirect('../pinjam', 'refresh');
+            } else {
+                $this->session->set_flashdata("gagal", $add["msg"]);
+                redirect('../pinjam/kembalikan/' . $id, 'refresh');
+            }
         } else {
             redirect('../', 'refresh');
         }

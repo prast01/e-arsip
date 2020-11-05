@@ -77,8 +77,8 @@
                                                         <td><?= $key->no_surat; ?></td>
                                                         <td><?= $key->ringkasan; ?></td>
                                                         <td><?= $key->catatan; ?></td>
-                                                        <td>
-                                                            <div class="btn-group" style="margin-top: 5px;">
+                                                        <td class="text-center">
+                                                            <div class="btn-group">
                                                                 <button type="button" class="btn btn-info btn-sm text-white" onclick="modal_detail('<?= $key->id_surat; ?>', '<?= $jenis; ?>')" title="Lihat Surat"><i class="fa fa-eye"></i></button>
                                                             </div>
                                                         </td>

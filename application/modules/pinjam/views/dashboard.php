@@ -76,9 +76,15 @@
                                                         <td><?= $key->no_surat; ?></td>
                                                         <td><?= $key->ringkasan; ?></td>
                                                         <td><?= $key->catatan; ?></td>
-                                                        <td>
-                                                            <div class="btn-group" style="margin-top: 5px;">
+                                                        <td class="text-center">
+                                                            <div class="btn-group">
                                                                 <button type="button" class="btn btn-info btn-sm text-white" onclick="modal_detail('<?= $key->id_surat; ?>', '<?= $jenis; ?>')" title="Lihat Surat"><i class="fa fa-eye"></i></button>
+                                                                <a href="<?= site_url("../pinjam/ubah/" . $key->id_pinjam); ?>" class="btn btn-sm btn-warning text-white"><span class="fa fa-edit"></span></a>
+                                                                <a href="<?= site_url("../pinjam/hapus/" . $key->id_pinjam); ?>" class="btn btn-sm btn-danger text-white"><span class="fa fa-trash"></span></a>
+                                                            </div>
+                                                            <br>
+                                                            <div class="btn-group mt-2">
+                                                                <a href="<?= site_url("../pinjam/kembalikan/" . $key->id_pinjam); ?>" class="btn btn-sm btn-info text-white"><span class="fa fa-sync"></span></a>
                                                             </div>
                                                         </td>
                                                     </tr>
