@@ -45,8 +45,37 @@
                         <div class="card-body">
                             <div class="row mb-3">
                                 <div class="col-12">
+                                    <a href="<?= site_url("../arsip"); ?>" class="btn btn-warning text-white"><span class="fa fa-arrow-left"></span> Kembali</a>
                                     <a href="<?= site_url("../pinjam/tambah"); ?>" class="btn btn-success"><span class="fa fa-plus"></span> Pinjam Baru</a>
                                     <a href="<?= site_url("../pinjam/kembali"); ?>" class="btn btn-danger"><span class="fa fa-envelope"></span> Daftar Kembali</a>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <form action="<?php echo site_url('../pinjam'); ?>" method="post">
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">
+                                                <select name="bulan" class="form-control select2" style="width: 100%">
+                                                    <?php foreach ($bulan as $row => $val) : ?>
+                                                        <option <?= ($p_bln == $row) ? "selected" : ""; ?> value="<?php echo $row; ?>"><?php echo $val; ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <select name="tahun" class="form-control select2" style="width: 100%">
+                                                    <?php foreach ($tahun as $row => $val) : ?>
+                                                        <option <?= ($p_thn == $val) ? "selected" : ""; ?> value="<?php echo $val; ?>"><?php echo $val; ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button type="submit" name="cari" class="btn btn-success btn-rounded btn-block"><span class="fa fa-search"></span> Cari</button>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button type="submit" name="export" class="btn btn-success btn-rounded btn-block"><span class="fa fa-file-export"></span> Excel</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                             <div class="row">

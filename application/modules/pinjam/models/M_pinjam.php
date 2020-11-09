@@ -141,18 +141,26 @@ class M_pinjam extends CI_Model
     }
 
     // get all pinjam
-    public function get_data()
+    public function get_data($bln, $thn)
     {
         $this->db->order_by("no_pinjam", "ASC");
-        $data = $this->db->get_where("v_pinjam", ["status_pinjam" => 0])->result();
+        if ($bln == "all") {
+            $data = $this->db->get_where("v_pinjam", ["status_pinjam" => 0, "YEAR(tgl_pinjam)" => $thn])->result();
+        } else {
+            $data = $this->db->get_where("v_pinjam", ["status_pinjam" => 0, "MONTH(tgl_pinjam)" => $bln, "YEAR(tgl_pinjam)" => $thn])->result();
+        }
 
         return $data;
     }
 
-    public function get_data_kembali()
+    public function get_data_kembali($bln, $thn)
     {
         $this->db->order_by("no_pinjam", "ASC");
-        $data = $this->db->get_where("v_pinjam", ["status_pinjam" => 1])->result();
+        if ($bln == "all") {
+            $data = $this->db->get_where("v_pinjam", ["status_pinjam" => 1, "YEAR(tgl_kembali)" => $thn])->result();
+        } else {
+            $data = $this->db->get_where("v_pinjam", ["status_pinjam" => 1, "MONTH(tgl_kembali)" => $bln, "YEAR(tgl_kembali)" => $thn])->result();
+        }
 
         return $data;
     }
