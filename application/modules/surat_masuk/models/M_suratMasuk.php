@@ -482,6 +482,17 @@ class M_suratMasuk extends CI_Model
 
         return $data + 1;
     }
+
+    public function get_disposisi($nomor_dinas)
+    {
+        $this->db->select("posisi");
+        $this->db->from("tb_dispo_kadin");
+        $this->db->join("tb_posisi", "tb_dispo_kadin.posisi_kadin=tb_posisi.id_posisi");
+        $this->db->where("nomor_dinas", $nomor_dinas);
+        $data = $this->db->get()->result_array();
+
+        return $data;
+    }
 }
 
 /* End of file ModelName.php */
