@@ -178,6 +178,41 @@ class M_services extends CI_Model
 
         return $data;
     }
+
+    public function get_surat_no($no, $jenis)
+    {
+        if ($jenis == "suratMasuk") {
+            $table = "tb_surat_masuk_2";
+        } else {
+            $table = "tb_surat_keluar_2";
+        }
+
+        $pinjam = $this->get_daftar_pinjam();
+
+        $this->db->from($table);
+        $this->db->where("nomor_surat", $no);
+        if (count($pinjam) != 0) {
+            $this->db->where_not_in("nomor_dinas", $pinjam);
+        }
+
+        $data = $this->db->get();
+
+        return $data;
+    }
+
+    private function get_daftar_pinjam()
+    {
+        $data = $this->db->get_where("tb_pinjam", ["status_pinjam" => 0])->result();
+
+        $dt = array();
+        $no = 0;
+        foreach ($data as $key) {
+            $dt[$no] = $key->nomor_dinas;
+            $no++;
+        }
+
+        return $dt;
+    }
 }
 
 /* End of file ModelName.php */

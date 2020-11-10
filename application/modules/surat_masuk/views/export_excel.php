@@ -1,6 +1,6 @@
 <?php
 header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=surat_masuk.xls");
+header("Content-Disposition: attachment; filename=surat_masuk_" . $p_bln . $p_thn . ".xls");
 ?>
 <center>
     <h3>DATA SURAT MASUK</h3>

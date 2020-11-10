@@ -86,7 +86,8 @@
                                             <div class="col-sm-1">
                                                 <button type="submit" name="cari" class="btn btn-success btn-rounded">Cari</button>
                                             </div>
-                                            <div class="col-sm-2">
+                                            <div class="col-sm-7">
+                                                <button type="submit" name="print" class="btn btn-success btn-rounded"><i class="fa fa-print"></i> Print</button>
                                                 <button type="submit" name="excel" class="btn btn-success btn-rounded"><i class="fa fa-file-export"></i> Export Excel</button>
                                             </div>
                                         </div>
