@@ -345,9 +345,9 @@ class Surat_masuk extends MY_Controller
       } elseif (isset($_POST['print'])) {
         foreach ($data['surat'] as $row) :
           if ($row->arsipkan_1 == 0) {
-            $data['dispo'] = $model2->get_disposisi($row->nomor_dinas);
+            $data['dispo'][$row->nomor_dinas] = $model2->get_disposisi($row->nomor_dinas);
           } else {
-            $data['dispo'] = array(
+            $data['dispo'][$row->nomor_dinas] = array(
               array("posisi" => "Kepala Dinas")
             );
           }

@@ -84,7 +84,7 @@
                     <td align="center" valign="top"><?= $row->nomor_dinas; ?></td>
                     <td valign="top">
                         <ol style="margin: 0 0; padding-left: 15px;">
-                            <?php foreach ($dispo as $key) : ?>
+                            <?php foreach ($dispo[$row->nomor_dinas] as $key) : ?>
                                 <li><?= $key['posisi']; ?></li>
                             <?php endforeach; ?>
                         </ol>
