@@ -130,6 +130,42 @@ $(function () {
   });
   
   set_nilai_ubah();
+
+  
+  $('#btn_cari').click(function() {
+    let no = $("#no_surat").val();
+    let jenis = $('#jns:checked').val();
+    if (no === "") {
+      alert("Nomor Surat Harus Diisi !");
+    } else {
+      $.ajax({
+        url: url + "services/get_surat",
+        type: "GET",
+        data: {
+          'no': no,
+          'jenis': jenis
+        },
+        dataType: "json",
+        success: function(data) {
+          if (data.res == '1') {
+            alert("Data Berhasil Ditemukan");
+            $("#nomor_dinas").val(data.nomor_dinas);
+            $("#id_surat").val(data.id_surat);
+            $("#kode_klas").val(data.kode_klas);
+            $("#ringkasan").val(data.ringkasan);
+            $("#penyimpanan").val(data.penyimpanan);
+            $("#referensi").focus();
+          } else {
+            alert("Data Tidak Berhasil Ditemukan");
+            $("#nomor_dinas").val("");
+            $("#kode_klas").val("");
+            $("#ringkasan").val("");
+            $("#penyimpanan").val("");
+          }
+        }
+      })
+    }
+  })
 });
 
 function set_nilai_ubah() {
@@ -315,6 +351,7 @@ function jumlahSurat(url) {
       $(".jml_surat_keluar").html(json.surat_keluar);
       $(".jml_surat_tugas").html(json.surat_tugas);
       $(".jml_nota_dinas").html(json.nota_dinas);
+      $(".jml_pinjam").html(json.pinjam);
     },
   });
 }
@@ -413,5 +450,6 @@ function dispo(id) {
     $(".dispo").prop("disabled", true);
     $(".dispo").val("").trigger("change");
   }
-  console.log(val);
 }
+
+

@@ -339,14 +339,26 @@ class Surat_masuk extends MY_Controller
     $data['tahun'] = $tahun;
     $data['p_thn'] = $p_thn;
 
-    if (isset($_POST['excel'])) {
-      $this->load->view('export_excel', $data);
-    } else {
-      if ($this->session->userdata('id_user') != '') {
-        $this->template('dashboard3', $data);
+    if ($this->session->userdata('id_user') != '') {
+      if (isset($_POST['excel'])) {
+        $this->load->view('export_excel', $data);
+      } elseif (isset($_POST['print'])) {
+        foreach ($data['surat'] as $row) :
+          if ($row->arsipkan_1 == 0) {
+            $data['dispo'][$row->nomor_dinas] = $model2->get_disposisi($row->nomor_dinas);
+          } else {
+            $data['dispo'][$row->nomor_dinas] = array(
+              array("posisi" => "Kepala Dinas")
+            );
+          }
+
+        endforeach;
+        $this->load->view('print', $data);
       } else {
-        redirect('../', 'refresh');
+        $this->template('dashboard3', $data);
       }
+    } else {
+      redirect('../', 'refresh');
     }
   }
 
