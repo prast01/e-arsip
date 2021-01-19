@@ -324,24 +324,25 @@ class M_default extends CI_Model
 
     public function getJumlahSurat($id)
     {
+        $thn = date("Y");
         if ($id == '1') {
-            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi ORDER BY a.nomor_dinas DESC";
+            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND YEAR(tgl_terima)='$thn' ORDER BY a.nomor_dinas DESC";
         } elseif ($id == '19') {
-            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi ORDER BY a.nomor_dinas DESC";
+            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND YEAR(tgl_terima)='$thn' ORDER BY a.nomor_dinas DESC";
         } elseif ($id > '1' && $id < '5') {
-            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND a.nomor_dinas IN (SELECT nomor_dinas FROM tb_dispo_sekdin WHERE posisi_sekdin='$id' GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
+            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND a.nomor_dinas IN (SELECT nomor_dinas FROM tb_dispo_sekdin WHERE posisi_sekdin='$id' GROUP BY nomor_dinas) AND YEAR(tgl_terima)='$thn' ORDER BY a.nomor_dinas DESC";
         } elseif ($id == '5' || $id == '6' || $id == '16' || $id == '17') {
-            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND a.arsipkan_2='0' AND a.nomor_dinas IN (SELECT nomor_dinas FROM tb_dispo_sekdin WHERE posisi_sekdin='$id' GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
+            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND a.arsipkan_2='0' AND a.nomor_dinas IN (SELECT nomor_dinas FROM tb_dispo_sekdin WHERE posisi_sekdin='$id' GROUP BY nomor_dinas) AND YEAR(tgl_terima)='$thn' ORDER BY a.nomor_dinas DESC";
         } else {
-            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND a.arsipkan_3='0' AND a.nomor_dinas IN (SELECT nomor_dinas FROM tb_dispo_bidang WHERE posisi_bidang='$id' GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
+            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND a.arsipkan_3='0' AND a.nomor_dinas IN (SELECT nomor_dinas FROM tb_dispo_bidang WHERE posisi_bidang='$id' GROUP BY nomor_dinas) AND YEAR(tgl_terima)='$thn' ORDER BY a.nomor_dinas DESC";
         }
 
         $suratMasuk = $this->db->query($q)->num_rows();
 
         if ($id == '1') {
-            $suratKeluar = $this->db->query("SELECT * FROM tb_surat_keluar_2")->num_rows();
+            $suratKeluar = $this->db->query("SELECT * FROM tb_surat_keluar_2 WHERE YEAR(tgl_naik)='$thn'")->num_rows();
         } else {
-            $suratKeluar = $this->db->query("SELECT * FROM tb_surat_keluar_2 WHERE unit_kerja='$id'")->num_rows();
+            $suratKeluar = $this->db->query("SELECT * FROM tb_surat_keluar_2 WHERE unit_kerja='$id' AND YEAR(tgl_naik)='$thn'")->num_rows();
         }
 
         if ($id == '6') {
@@ -357,7 +358,7 @@ class M_default extends CI_Model
             $notaDinas = $this->db->query("SELECT * FROM tb_nota_dinas WHERE created_by='$id'")->num_rows();
         }
 
-        $pinjam = $this->db->query("SELECT * FROM tb_pinjam WHERE status_pinjam='0'")->num_rows();
+        $pinjam = $this->db->query("SELECT * FROM tb_pinjam WHERE status_pinjam='0' AND YEAR(tgl_pinjam)='$thn'")->num_rows();
 
         $msg = array("surat_masuk" => $suratMasuk, "surat_keluar" => $suratKeluar, "surat_tugas" => $suratTugas, "nota_dinas" => $notaDinas, "pinjam" => $pinjam);
 
