@@ -309,7 +309,8 @@ class M_suratKeluar extends CI_Model
 
     public function getNomor()
     {
-        $h = $this->db->query("SELECT MAX(nomor_dinas) as nomor FROM tb_surat_keluar_2")->row();
+        $thn = date("Y");
+        $h = $this->db->query("SELECT MAX(nomor_dinas) as nomor FROM tb_surat_keluar_2 WHERE YEAR(tgl_naik) = '$thn'")->row();
         $nomor = $h->nomor + 1;
 
         return $nomor;

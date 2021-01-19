@@ -174,7 +174,7 @@ class M_default extends CI_Model
         if ($id != '1' && $id != '6') {
             $this->db->where(['tb_surat_keluar_2.unit_kerja' => $id]);
         }
-        $this->db->order_by('tb_surat_keluar_2.tgl_surat', 'DESC');
+        $this->db->order_by('tb_surat_keluar_2.nomor_dinas', 'DESC');
         return $this->db->get();
     }
 

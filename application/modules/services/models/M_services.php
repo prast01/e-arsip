@@ -135,6 +135,7 @@ class M_services extends CI_Model
     {
         $search = $_GET['search'];
 
+        $this->db->select("*");
         $this->db->from('tb_klasifikasi');
         $this->db->like("sub_sub_klasifikasi", $search);
         $data = $this->db->get()->result();

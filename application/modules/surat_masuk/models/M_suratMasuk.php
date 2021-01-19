@@ -131,7 +131,8 @@ class M_suratMasuk extends CI_Model
 
     public function getNomor()
     {
-        $h = $this->db->query("SELECT MAX(nomor_dinas) as nomor FROM tb_surat_masuk_2")->row();
+        $thn = date("Y");
+        $h = $this->db->query("SELECT MAX(nomor_dinas) as nomor FROM tb_surat_masuk_2 WHERE YEAR(tgl_terima) = '$thn'")->row();
         $nomor = $h->nomor + 1;
 
         return $nomor;
