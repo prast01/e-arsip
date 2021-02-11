@@ -103,7 +103,7 @@ $tanggal = tgl_ind($tgl); // ini adalah kode untuk menampilkan fungsi pada file 
 			<td align="center" colspan="4">
 				<h3 style="margin-bottom:-10px; margin-top:-10px"><u>SURAT TUGAS</u></h3>
 				<!-- <p>Nomor : 090.1/<?php echo sprintf("%04s", $surat->nomor_surat); ?>/2020</p> -->
-				<p>Nomor : 090.1/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/2020</p>
+				<p>Nomor : 090.1/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/<?= date("Y"); ?></p>
 			</td>
 		</tr>
 		<tr>
