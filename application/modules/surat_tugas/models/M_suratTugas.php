@@ -88,8 +88,8 @@ class M_suratTugas extends CI_Model
     public function getROK($posisi)
     {
         // $url = "http://sikupat2020.sikdkkjepara.net/getRok.php?id=" . $posisi;
-        // $url = "http://sikupat.mi-kes.net/2021/service/get_data_rok/" . $posisi;
-        $url = "http://localhost/sikupat/2021/service/get_data_rok/" . $posisi;
+        $url = "http://sikupat.mi-kes.net/2021/service/get_data_rok/" . $posisi;
+        // $url = "http://localhost/sikupat/2021/service/get_data_rok/" . $posisi;
         $content = file_get_contents($url);
         $clean_content = $this->removeBomUtf8($content);
         $decoded = json_decode($clean_content, true);
