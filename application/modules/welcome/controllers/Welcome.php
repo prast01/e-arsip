@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Welcome extends MY_Controller {
+class Welcome extends MY_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -18,9 +19,9 @@ class Welcome extends MY_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-    public function __construct()
-    {
-        parent::__construct();
+	public function __construct()
+	{
+		parent::__construct();
 		$this->load->model("M_welcome");
 	}
 
@@ -28,7 +29,7 @@ class Welcome extends MY_Controller {
 	{
 		$this->load->view('welcome_message');
 		if ($this->session->userdata('id_user') != '') {
-			redirect('../arsip','refresh');
+			redirect('../arsip', 'refresh');
 		}
 	}
 
@@ -38,7 +39,7 @@ class Welcome extends MY_Controller {
 
 		$hasil = json_decode($login->cek_login(), true);
 
-		if($hasil['res']){
+		if ($hasil['res']) {
 			$this->session->set_userdata('id_user', $hasil['data']['id_user']);
 			$this->session->set_userdata('level', $hasil['data']['level_user']);
 			$this->session->set_userdata('posisi', $hasil['data']['posisi_user']);
@@ -51,21 +52,22 @@ class Welcome extends MY_Controller {
 			$jabatan = $posisi['data']['posisi'];
 			$this->session->set_userdata('nama_user', $pegawai['data']['nama_pegawai']);
 			$this->session->set_userdata('jabatan', $jabatan);
-			redirect('../arsip','refresh');
+			redirect('../arsip', 'refresh');
 		} else {
 			$this->session->set_flashdata('gagal', $hasil['msg']);
-			redirect('../','refresh');
+			redirect('../', 'refresh');
 		}
 	}
 
-	public function get_autocomplete(){
-        if (isset($_GET['term'])) {
-            $result = $this->M_welcome->search($_GET['term']);
-            if (count($result) > 0) {
-            foreach ($result as $row)
-                $arr_result[] = $row->username_user;
-                echo json_encode($arr_result);
-            }
-        }
-    }
+	public function get_autocomplete()
+	{
+		if (isset($_GET['term'])) {
+			$result = $this->M_welcome->search($_GET['term']);
+			if (count($result) > 0) {
+				foreach ($result as $row)
+					$arr_result[] = $row->username_user;
+				echo json_encode($arr_result);
+			}
+		}
+	}
 }

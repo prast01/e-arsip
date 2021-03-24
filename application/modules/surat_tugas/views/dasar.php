@@ -90,20 +90,6 @@
                                 <?php
                                     $no++;
                                 }
-
-                                foreach ($nota as $row) {
-                                ?>
-                                    <tr>
-                                        <td><?php echo $no; ?></td>
-                                        <td><?php echo $row->perihal_nota_dinas; ?></td>
-                                        <td>NOTA DINAS</td>
-                                        <td>
-                                            <span class="text-primary" style="cursor: pointer" onclick="getData('ROK-<?php echo $row->perihal_nota_dinas; ?>')"><i class="fa fa-check"></i> Pilih</span>
-                                        </td>
-                                    </tr>
-                                <?php
-                                    $no++;
-                                }
                                 ?>
                             </tbody>
                         </table>

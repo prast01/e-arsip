@@ -112,74 +112,80 @@ class Services extends MY_Controller
         $perdin = ($data->mata_perdin == '') ? '0' : $data->mata_perdin;
         $bbm = ($data->mata_bbm == '') ? '0' : $data->mata_bbm;
         $dalam_luar = $data->dalam_luar_tugas;
-        $bulan = date('n', strtotime($data->tgl_kegiatan));
+        $bulan = date('m', strtotime($data->tgl_kegiatan));
         $kegiatan = $data->nama_kegiatan . ' tanggal ' . $this->getTanggal($data->tgl_kegiatan, $data->tgl_kegiatan_2);
 
         $dasar = explode('-', $data->dasar_surat);
 
-        $kpl = $model->getKepala($data->created_by);
-
         if ($dasar[0] == 'SM') {
             $handle = curl_init();
-            curl_setopt($handle, CURLOPT_URL, "http://sikupat2020.sikdkkjepara.net/sendSurtug.php");
+            // curl_setopt($handle, CURLOPT_URL, "http://sikupat2020.sikdkkjepara.net/sendSurtug.php");
+            curl_setopt($handle, CURLOPT_URL, "http://localhost/sikupat/2021/service/send_surtug");
+            // curl_setopt($handle, CURLOPT_URL, "http://sikupat.mi-kes.net/2021/service/send_surtug");
             curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+
+            $status_perdin = ($perdin != 0) ? 1 : 0;
+            $status_bbm = ($bbm != 0) ? 1 : 0;
+
+            $value["status"] = array(
+                "perdin" => $status_perdin,
+                "bbm" => $status_bbm,
+            );
 
             if ($perdin != '0') {
                 if ($dalam_luar == '1') {
-                    $id_spj = '58';
+                    $id_sub_kegiatan = '7';
+                    $id_rekening = '46';
                 } else {
-                    $id_spj = '57';
+                    $id_sub_kegiatan = '3';
+                    $id_rekening = '26';
                 }
-                $value = array(
-                    'id_spj' => $id_spj,
+                $value['perdin'] = array(
+                    'id_sub_kegiatan' => $id_sub_kegiatan,
+                    'id_rekening' => $id_rekening,
                     'bulan' => $bulan,
-                    'kegiatan' => $kegiatan,
+                    'uraian' => $kegiatan,
                     'nominal' => $perdin,
-                    'seksi' => $seksi[$data->created_by],
-                    'nip' => $kpl->nip_pegawai
+                    'kode_seksi' => $seksi[$data->created_by],
+                    'keterangan' => "Entrian dari surat tugas",
+                    'jenis_spj' => 1
                 );
-
-                $json = json_encode($value);
-                curl_setopt($handle, CURLOPT_POSTFIELDS, $json);
-                curl_setopt($handle, CURLOPT_CUSTOMREQUEST, "POST");
-                curl_setopt($handle, CURLOPT_HTTPHEADER, [
-                    'Content-Type: application/json',
-                    'Content-Length: ' . strlen($json),
-                ]);
-
-                $result = curl_exec($handle);
-
-                echo $result;
             }
 
             if ($bbm != '0') {
-                $id_spj = '53';
-                $value = array(
-                    'id_spj' => $id_spj,
+                if ($dalam_luar == '1') {
+                    $id_sub_kegiatan = '7';
+                    $id_rekening = '41';
+                } else {
+                    $id_sub_kegiatan = '3';
+                    $id_rekening = '24';
+                }
+                $value['bbm'] = array(
+                    'id_sub_kegiatan' => $id_sub_kegiatan,
+                    'id_rekening' => $id_rekening,
                     'bulan' => $bulan,
-                    'kegiatan' => $kegiatan,
+                    'uraian' => $kegiatan,
                     'nominal' => $bbm,
-                    'seksi' => $seksi[$data->created_by],
-                    'nip' => $kpl->nip_pegawai
+                    'kode_seksi' => $seksi[$data->created_by],
+                    'keterangan' => "Entrian dari surat tugas",
+                    'jenis_spj' => 1
                 );
-
-                $json = json_encode($value);
-                curl_setopt($handle, CURLOPT_POSTFIELDS, $json);
-                curl_setopt($handle, CURLOPT_CUSTOMREQUEST, "POST");
-                curl_setopt($handle, CURLOPT_HTTPHEADER, [
-                    'Content-Type: application/json',
-                    'Content-Length: ' . strlen($json),
-                ]);
-
-                $result2 = curl_exec($handle);
-                echo $result2;
             }
+
+            $json = json_encode($value);
+            curl_setopt($handle, CURLOPT_POSTFIELDS, $json);
+            curl_setopt($handle, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($handle, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($json),
+            ]);
+
+            $result2 = curl_exec($handle);
+            echo $result2;
         }
 
         $hasil = json_decode($model->valid($id), true);
         if ($hasil['res']) {
-            //   $model2 = $this->M_default;
-            //   $model2->_push();
             $this->session->set_flashdata('success', $hasil['msg']);
         } else {
             $this->session->set_flashdata('gagal', $hasil['msg']);
@@ -363,5 +369,13 @@ class Services extends MY_Controller
         }
 
         echo json_encode($hsl);
+    }
+
+    public function get_surat_tugas($kode_seksi, $jenis)
+    {
+        $model = $this->M_services;
+        $data = $model->get_surat_tugas($kode_seksi, $jenis);
+
+        echo json_encode($data);
     }
 }

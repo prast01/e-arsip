@@ -214,6 +214,45 @@ class M_services extends CI_Model
 
         return $dt;
     }
+
+    public function get_surat_tugas($kode_seksi, $jenis)
+    {
+        $seksi = array(
+            "DJ001" =>  '5',
+            "DJ002" =>  '6',
+            "DJ004" =>  '7',
+            "DJ005" =>  '8',
+            "DJ003" =>  '9',
+            "DJ006" => '10',
+            "DJ008" => '11',
+            "DJ010" => '12',
+            "DJ011" => '13',
+            "DJ007" => '14',
+            "DJ009" => '15',
+            "DJ012" => '16',
+            "DJ013" => '17'
+        );
+
+        $bulan = date("m");
+        $tahun = date("Y");
+
+        if ($jenis == "bbm") {
+            $data = $this->db->query("SELECT dasar_surat, mata_bbm AS nominal FROM tb_surat_tugas WHERE sppd_surat = 1 AND validasi = 1 AND MONTH(created_at) <= '$bulan' AND YEAR(created_at) = '$tahun' AND created_by = '$seksi[$kode_seksi]' AND dasar_surat LIKE 'SM-%' AND mata_bbm != 0 ORDER BY created_at DESC")->result();
+        } elseif ($jenis == "perdin") {
+            $data = $this->db->query("SELECT dasar_surat, mata_perdin AS nominal FROM tb_surat_tugas WHERE sppd_surat = 1 AND validasi = 1 AND MONTH(created_at) <= '$bulan' AND YEAR(created_at) = '$tahun' AND created_by = '$seksi[$kode_seksi]' AND dasar_surat LIKE 'SM-%' AND mata_perdin != 0 ORDER BY created_at DESC")->result();
+        }
+
+        $no = 0;
+        $hsl = array();
+        foreach ($data as $key) {
+            $hsl[$no++] = array(
+                "surat" => $key->dasar_surat,
+                "nominal" => $key->nominal,
+            );
+        }
+
+        return $hsl;
+    }
 }
 
 /* End of file ModelName.php */

@@ -68,17 +68,17 @@ class M_suratTugas extends CI_Model
 
     public function getDasar($posisi)
     {
-
+        $tahun = date("Y");
         if ($posisi == '1') {
-            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi ORDER BY a.nomor_dinas DESC";
+            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND YEAR(a.tgl_terima)='$tahun' ORDER BY a.nomor_dinas DESC";
         } elseif ($posisi == '19') {
-            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND a.arsipkan_2='0' AND a.nomor_dinas NOT IN (SELECT nomor_dinas FROM tb_dispo_sekdin GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
+            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND a.arsipkan_2='0' AND YEAR(a.tgl_terima)='$tahun' AND a.nomor_dinas NOT IN (SELECT nomor_dinas FROM tb_dispo_sekdin GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
         } elseif ($posisi > '1' && $posisi < '5') {
-            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND a.arsipkan_2='0' AND a.nomor_dinas IN (SELECT nomor_dinas FROM tb_dispo_sekdin WHERE posisi_sekdin='$posisi' GROUP BY nomor_dinas) AND a.nomor_dinas NOT IN (SELECT nomor_dinas FROM tb_dispo_bidang GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
+            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND a.arsipkan_2='0' AND YEAR(a.tgl_terima)='$tahun' AND a.nomor_dinas IN (SELECT nomor_dinas FROM tb_dispo_sekdin WHERE posisi_sekdin='$posisi' GROUP BY nomor_dinas) AND a.nomor_dinas NOT IN (SELECT nomor_dinas FROM tb_dispo_bidang GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
         } elseif ($posisi == '5' || $posisi == '6' || $posisi == '16' || $posisi == '17') {
-            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND a.arsipkan_2='0' AND a.nomor_dinas IN (SELECT nomor_dinas FROM tb_dispo_sekdin WHERE posisi_sekdin='$posisi' GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
+            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND a.arsipkan_2='0' AND YEAR(a.tgl_terima)='$tahun' AND a.nomor_dinas IN (SELECT nomor_dinas FROM tb_dispo_sekdin WHERE posisi_sekdin='$posisi' GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
         } else {
-            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND a.arsipkan_3='0' AND a.nomor_dinas IN (SELECT nomor_dinas FROM tb_dispo_bidang WHERE posisi_bidang='$posisi' GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
+            $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND a.arsipkan_3='0' AND YEAR(a.tgl_terima)='$tahun' AND a.nomor_dinas IN (SELECT nomor_dinas FROM tb_dispo_bidang WHERE posisi_bidang='$posisi' GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
         }
 
         $data = $this->db->query($q)->result();
@@ -87,7 +87,9 @@ class M_suratTugas extends CI_Model
 
     public function getROK($posisi)
     {
-        $url = "http://sikupat2020.sikdkkjepara.net/getRok.php?id=" . $posisi;
+        // $url = "http://sikupat2020.sikdkkjepara.net/getRok.php?id=" . $posisi;
+        // $url = "http://sikupat.mi-kes.net/2021/service/get_data_rok/" . $posisi;
+        $url = "http://localhost/sikupat/2021/service/get_data_rok/" . $posisi;
         $content = file_get_contents($url);
         $clean_content = $this->removeBomUtf8($content);
         $decoded = json_decode($clean_content, true);
