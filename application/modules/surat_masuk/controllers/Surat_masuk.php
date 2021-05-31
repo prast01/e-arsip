@@ -46,7 +46,12 @@ class Surat_masuk extends MY_Controller
     $data['tahun'] = $tahun;
     $data['p_thn'] = $p_thn;
     if ($this->session->userdata('id_user') != '') {
-      $this->template('dashboard', $data);
+      if (isset($_POST["cetak"])) {
+        $data['surat2'] = $model2->getSuratMasukAll($id, $p_bln, $p_thn)->result();
+        $this->load->view('cetak', $data);
+      } else {
+        $this->template('dashboard', $data);
+      }
     } else {
       redirect('../', 'refresh');
     }

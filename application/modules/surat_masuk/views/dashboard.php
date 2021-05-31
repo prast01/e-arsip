@@ -103,8 +103,9 @@
                                                     ?>
                                                 </select>
                                             </div>
-                                            <div class="col-sm-1">
+                                            <div class="col-sm-2">
                                                 <button type="submit" name="cari" class="btn btn-success btn-rounded">Cari</button>
+                                                <button type="submit" name="cetak" class="btn btn-primary btn-rounded">Cetak</button>
                                             </div>
                                         </div>
                                     </form>

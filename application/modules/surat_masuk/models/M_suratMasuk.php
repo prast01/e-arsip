@@ -5,6 +5,37 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class M_suratMasuk extends CI_Model
 {
 
+    public function getSuratMasukAll($posisi, $bln, $thn)
+    {
+        if ($bln != 'all') {
+            if ($posisi == '1') {
+                $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND MONTH(a.tgl_terima)='$bln' AND YEAR(a.tgl_terima)='$thn' ORDER BY a.nomor_dinas ASC";
+            } elseif ($posisi == '19') {
+                $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND MONTH(a.tgl_terima)='$bln' AND YEAR(a.tgl_terima)='$thn' AND a.arsipkan_2='0' AND a.nomor_dinas NOT IN (SELECT nomor_dinas FROM tb_dispo_sekdin GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
+            } elseif ($posisi > '1' && $posisi < '5') {
+                $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND MONTH(a.tgl_terima)='$bln' AND YEAR(a.tgl_terima)='$thn' AND a.arsipkan_2='0' AND a.nomor_dinas IN (SELECT nomor_dinas FROM tb_dispo_sekdin WHERE posisi_sekdin='$posisi' GROUP BY nomor_dinas) AND a.nomor_dinas NOT IN (SELECT nomor_dinas FROM tb_dispo_bidang GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
+            } elseif ($posisi == '5' || $posisi == '6' || $posisi == '16' || $posisi == '17') {
+                $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND MONTH(a.tgl_terima)='$bln' AND YEAR(a.tgl_terima)='$thn' AND a.arsipkan_2='0' AND a.nomor_dinas IN (SELECT nomor_dinas FROM tb_dispo_sekdin WHERE posisi_sekdin='$posisi' GROUP BY nomor_dinas) AND a.nomor_dinas NOT IN (SELECT nomor_dinas FROM tb_dispo_pegawai WHERE seksi='$posisi' GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
+            } else {
+                $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND MONTH(a.tgl_terima)='$bln' AND YEAR(a.tgl_terima)='$thn' AND a.arsipkan_3='0' AND a.nomor_dinas IN (SELECT nomor_dinas FROM tb_dispo_bidang WHERE posisi_bidang='$posisi' GROUP BY nomor_dinas) AND a.nomor_dinas NOT IN (SELECT nomor_dinas FROM tb_dispo_pegawai WHERE seksi='$posisi' GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
+            }
+        } else {
+            if ($posisi == '1') {
+                $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND YEAR(a.tgl_terima)='$thn' ORDER BY a.nomor_dinas ASC";
+            } elseif ($posisi == '19') {
+                $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND YEAR(a.tgl_terima)='$thn' AND a.arsipkan_2='0' AND a.nomor_dinas NOT IN (SELECT nomor_dinas FROM tb_dispo_sekdin GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
+            } elseif ($posisi > '1' && $posisi < '5') {
+                $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND YEAR(a.tgl_terima)='$thn' AND a.arsipkan_2='0' AND a.nomor_dinas IN (SELECT nomor_dinas FROM tb_dispo_sekdin WHERE posisi_sekdin='$posisi' GROUP BY nomor_dinas) AND a.nomor_dinas NOT IN (SELECT nomor_dinas FROM tb_dispo_bidang GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
+            } elseif ($posisi == '5' || $posisi == '6' || $posisi == '16' || $posisi == '17') {
+                $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND YEAR(a.tgl_terima)='$thn' AND a.arsipkan_2='0' AND a.nomor_dinas IN (SELECT nomor_dinas FROM tb_dispo_sekdin WHERE posisi_sekdin='$posisi' GROUP BY nomor_dinas) AND a.nomor_dinas NOT IN (SELECT nomor_dinas FROM tb_dispo_pegawai WHERE seksi='$posisi' GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
+            } else {
+                $q = "SELECT * FROM tb_surat_masuk_2 a, tb_klasifikasi b WHERE a.sub_sub_klasifikasi=b.sub_sub_klasifikasi AND YEAR(a.tgl_terima)='$thn' AND a.arsipkan_3='0' AND a.nomor_dinas IN (SELECT nomor_dinas FROM tb_dispo_bidang WHERE posisi_bidang='$posisi' GROUP BY nomor_dinas) AND a.nomor_dinas NOT IN (SELECT nomor_dinas FROM tb_dispo_pegawai WHERE seksi='$posisi' GROUP BY nomor_dinas) ORDER BY a.nomor_dinas DESC";
+            }
+        }
+
+        return $this->db->query($q);
+    }
+
     public function save()
     {
         $post = $this->input->post();
